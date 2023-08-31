@@ -1,0 +1,15 @@
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000469/moxa-w325-series-device-manager-manual-v3.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000469/moxa-w325-series-hardware-manual-v5.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000469/moxa-w325-series-manual-v5.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000469/moxa-w325-series-series-datasheet-v1.0.pdf
+
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000462/moxa-w315a-w325a-series-compatibility-guide-v2.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000462/moxa-w315a-w325a-series-datasheet-v1.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000462/moxa-w315a-w325a-series-hardware-manual-v2.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000462/moxa-w315a-w325a-series-qig-manual-v2.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000462/moxa-w315a-w325a-series-linux-manual-v1.0.pdf
+
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000470/moxa-w345-series-hardware-manual-v5.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000470/moxa-w345-series-linux-manual-v5.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000470/moxa-w345-series-qig-manual-v4.0.pdf
+https://cdn-cms.azureedge.net/Moxa/media/PDIM/S100000470/moxa-w345-series-datasheet-v1.0.pdf
