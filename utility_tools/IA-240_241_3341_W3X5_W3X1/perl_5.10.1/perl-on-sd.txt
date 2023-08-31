@@ -1,0 +1,31 @@
+How to use perl all package on SD card.
+
+1. You must prepare a SD card over 64M bytes size.
+2. Insert Moxa Embeded Computer Linux platform.
+3. You must format this SD card to be ext2 file system.
+	 > umount /mnt/sd
+	 > mke2fs /dev/mmcblk0
+	 > mount /dev/mmcblk0 /mnt/sd
+4. Install all basic perl package on SD card. 
+   You must download the perl.tar.gz to Moxa Embedded computer.
+   You can put it on SD card. Now login Moxa Embedded computer
+   with root user.
+	> cd /mnt/sd
+	> tar zxvf /dev/shm/perl.tar.gz
+5. After untar the perl.tar.gz, you need to set PERL5LIB for locating 
+the perl libraries. We suggest to set it in /etc/profile and reboot to.
+
+	export PERL5LIB=/mnt/sd/perl/lib/perl5/5.10.1/:/mnt/sd/perl/lib/perl5/5.10.1/arm-linux
+	export LD_LIBRARY_PATH=/mnt/sd/perl/lib/perl5/5.10.1/arm-linux/CORE
+	export PATH=$PATH:/mnt/sd/perl/bin
+
+   or export these environment variables manually
+
+6. Wirte an example perl script:
+	#!/mnt/sd/perl/bin/perl
+	use strict;
+	use IO::Socket;
+7. Save this example perl to /home directory or any other directory
+8. Change this example file to be executable 
+   > chmod +x /home/tperl
+9. run it.

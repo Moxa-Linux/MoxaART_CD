@@ -1,0 +1,113 @@
+
+1. Install the packages on target
+
+The package I uploaded to /dev/shm/npreald_1.19_arm.ipk
+
+root@Moxa:~# cd /dev/shm/
+root@Moxa:~# ipkg-cl install ./npreald_1.19_arm.ipk
+
+2. Map the remote serial port.
+
+In this example, I use mxaddsvr to map the remote serial ports.
+The configure file is created at /etc/npreal2/npreal2d.cf
+
+root@Moxa:/dev/shm# mxaddsvr 10.144.4.99 2
+Adding Server...
+
+ttyr00, cur00
+ttyr01, cur01
+Added RealCom server: ip : 10.144.4.99
+
+mknod -m 666 ttyr00 c 33 0
+mknod -m 666 cur00 c 38 0
+mknod -m 666 ttyr01 c 33 1
+mknod -m 666 cur01 c 38 1
+Complete.
+
+Check the configure file /etc/npreal2/npreal2d.cf 
+
+root@Moxa:/dev/shm# cat /etc/npreal2/npreal2d.cf 
+#=========================================================#
+#   This configuration file is created by Moxa NPort      #
+#   Administrator Program automatically, please do not    #
+#   modify this file by yourself.                         #
+#=========================================================#
+ttymajor=33
+calloutmajor=38
+#[Minor] [ServerIP]     [data]  [cmd]   [FIFO]  [SSL]   [ttyName] [coutName] [interface][mode][BackIP]
+0       10.144.4.99     950     966     1       0       ttyr00  cur00   0       0
+1       10.144.4.99     951     967     1       0       ttyr01  cur01   0       0
+
+Check npreal2d has run after mxaddsvr mapped the remoted serial ports.
+
+root@Moxa:/dev/shm# ps |grep npreal2d
+  754 root       0:00 /usr/local/bin/npreal2d -t 1
+  887 root       0:00 grep npreal2d
+
+If the npreal2d is not work correctly, you can use the convenient script, /etc/init.d/npreal2, to restart it.
+
+root@Moxa:/dev/shm# /etc/init.d/npreal2 stop
+root@Moxa:/dev/shm# /etc/init.d/npreal2 start
+
+The remote serial ports has mapped at /dev/ttyr00 and /dev/ttyr01.
+Then you can program /dev/ttyr00, /dev/ttyr01 to access the NPORT at 10.144.4.99.
+
+root@Moxa:/dev/shm# ./prog2 3
+
+Testing device Pa=/dev/ttyr00, Pb=/dev/ttyr01, PA=/dev/cur00, PB=/dev/cur01
+
+Testing Item -> Read
+FlushTty
+CloseTty
+complete
+*** Test OK ***
+
+root@Moxa:/dev/shm# ./prog2 4
+
+Testing device Pa=/dev/ttyr00, Pb=/dev/ttyr01, PA=/dev/cur00, PB=/dev/cur01
+
+Testing Item -> Write
+step 1
+step 2
+step 3
+*** Test OK ***
+
+3. Cleanup the remote serial ports mapping in /etc/npreal2/npreal2d.cf
+
+root@Moxa:~# mxdelsvr 10.144.4.99
+
+Delete Server ...
+rm -f /dev/ttyr00
+rm -f /dev/cur00
+rm -f /dev/ttyr01
+rm -f /dev/cur01
+Deleted server: 10.144.4.99
+
+sh: line 0: kill: `root': not a pid or valid job spec
+sh: line 0: kill: `root': not a pid or valid job spec
+sh: line 0: kill: `root': not a pid or valid job spec
+sh: line 0: kill: `root': not a pid or valid job spec
+Complete.
+
+4. Uninstall the package
+
+First, stop the npreal2d service.
+
+root@Moxa:/dev/shm# /etc/init.d/npreal2 stop
+
+The process, npreal2d, should be stopped after run the script.
+
+Then check the installed package and remove it from the system.
+
+root@Moxa:/dev/shm# ipkg-cl list
+npreald - 1.19 - 
+Successfully terminated.
+
+root@Moxa:/dev/shm# ipkg-cl remove npreald
+Removing package npreald from root...
+Successfully terminated.
+root@Moxa:/dev/shm# ipkg-cl list
+Successfully terminated.
+
+
+

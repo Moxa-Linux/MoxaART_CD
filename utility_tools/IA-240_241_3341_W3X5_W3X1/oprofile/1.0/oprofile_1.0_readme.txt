@@ -1,0 +1,92 @@
+1. Upload oprofile-1.0.0_install.tar.gz to IA240-LX and untar it.
+
+	root@Moxa:/dev/shm# mount -o remount,rw /
+
+	root@Moxa:/dev/shm# tar -xzvf oprofile-1.0.0_install.tar.gz -C /
+
+	The extracted files will be located in /home/oprofile-1.0.0
+
+	./
+	./home/
+	./home/oprofile-1.0.0/
+	./home/oprofile-1.0.0/bin/
+	./home/oprofile-1.0.0/bin/opannotate
+	./home/oprofile-1.0.0/bin/opgprof
+	./home/oprofile-1.0.0/bin/op-check-perfevents
+	./home/oprofile-1.0.0/bin/opjitconv
+	./home/oprofile-1.0.0/bin/opreport
+	./home/oprofile-1.0.0/bin/oparchive
+	./home/oprofile-1.0.0/bin/opimport
+	./home/oprofile-1.0.0/bin/ophelp
+	./home/oprofile-1.0.0/lib/
+	./home/oprofile-1.0.0/lib/libopagent.so.1.0.1
+	./home/oprofile-1.0.0/lib/libpopt.so.0
+	./home/oprofile-1.0.0/lib/libpopt.so.0.0.0
+	./home/oprofile-1.0.0/lib/libopagent.so.1
+	./lib/
+	./lib/modules/
+	./lib/modules/2.6.9-uc0/
+	./lib/modules/2.6.9-uc0/kernel/
+	./lib/modules/2.6.9-uc0/kernel/arch/
+	./lib/modules/2.6.9-uc0/kernel/arch/arm/
+	./lib/modules/2.6.9-uc0/kernel/arch/arm/oprofile/
+	./lib/modules/2.6.9-uc0/kernel/arch/arm/oprofile/oprofile.ko
+
+	root@Moxa:/dev/shm# mount -o remount,rw /
+
+	Note: It's too big to install in /. So we can only put the files in /home/.
+
+2. Set PATH and LD_LIBRARY_PATH to the oprofile bindary and dependent libraries.
+
+	root@Moxa:/dev/shm# export LD_LIBRARY_PATH=/home/oprofile-1.0.0/lib/
+	root@Moxa:/dev/shm# export PATH=$PATH:/home/oprofile-1.0.0/bin
+
+3. Load the oprofile.ko into kernel and mount the oprofilefs at /dev/oprofile
+
+	root@Moxa:~# modprobe oprofile
+
+	Checking /proc/filesystems, the kernel should supports oprofilefs.
+	
+	root@Moxa:~# cat /proc/filesystems 
+	nodev   sysfs
+	nodev   rootfs
+	nodev   bdev
+	nodev   proc
+	nodev   sockfs
+	nodev   usbfs
+	nodev   usbdevfs
+	nodev   futexfs
+	nodev   tmpfs
+	nodev   pipefs
+	nodev   eventpollfs
+	nodev   devpts
+	        ext3
+	        ext2
+	nodev   ramfs
+	        vfat
+	nodev   nfs
+	nodev   nfs4
+	nodev   nfsd
+	nodev   jffs2
+	nodev   mqueue
+	nodev   rpc_pipefs
+	nodev   oprofilefs
+
+	mount the oprofilefs at /dev/oprofile
+
+	root@Moxa:~# mkdir /dev/oprofile
+	root@Moxa:~# mount -t oprofilefs nodev /dev/oprofile
+
+	The oprofile device file will be shown in /dev/oprofile/
+
+	root@Moxa:~# ls /dev/oprofile/
+	buffer            cpu_buffer_size   enable
+	buffer_size       cpu_type          pointer_size
+	buffer_watershed  dump              stats
+
+
+	check the cpu_type string.
+
+	root@Moxa:~# cat /dev/oprofile/cpu_type 
+	timer
+	
